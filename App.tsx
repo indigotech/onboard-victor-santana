@@ -10,10 +10,12 @@
 
 import React, {type PropsWithChildren} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   useColorScheme,
   View,
 } from 'react-native';
@@ -66,7 +68,13 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Track 2/8">Hello World </Section>
+          <Section title="Bem vindo(a) à Taqtile!">
+            <View>
+              <TextInput placeholder="Email" />
+              <TextInput placeholder="Senha" />
+              <Button title="Entrar" />
+            </View>
+          </Section>
         </View>
       </ScrollView>
     </SafeAreaView>

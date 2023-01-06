@@ -1,16 +1,13 @@
 import React from 'react';
-import {Button, SafeAreaView, Text, View} from 'react-native';
-import FormInput from '../components/FormInput';
+import {Button, SafeAreaView, Text} from 'react-native';
+import {LoginFields} from '../components/LoginFields';
 
-const LoginScreen = () => {
+export const LoginScreen = () => {
   return (
     <SafeAreaView>
       <Text>Bem vindo(a) à Taqtile!</Text>
-      <View>
-        <FormInput />
-        <Button title="Entrar" />
-      </View>
+      <LoginFields />
+      <Button title="Entrar" />
     </SafeAreaView>
   );
 };
-export default LoginScreen;

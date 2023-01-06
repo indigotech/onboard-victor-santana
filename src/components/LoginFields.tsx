@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TextInput, View} from 'react-native';
 
-const FormInput = () => {
+export const LoginFields = () => {
   return (
     <View>
       <Text>Email</Text>
@@ -11,4 +11,3 @@ const FormInput = () => {
     </View>
   );
 };
-export default FormInput;

@@ -10,7 +10,7 @@
 
 import React from 'react';
 import {SafeAreaView, ScrollView, useColorScheme, View} from 'react-native';
-import LoginScreen from './src/signin/Signin';
+import {LoginScreen} from './src/signin/Signin';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {

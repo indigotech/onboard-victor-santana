@@ -1,5 +1,5 @@
 import React from 'react';
-import {LoginFields} from '../components/LoginFields';
+import {LoginFields} from '../components/login-fields';
 import {SafeAreaView, Text} from 'react-native';
 
 export const LoginScreen = () => {

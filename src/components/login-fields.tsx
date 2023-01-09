@@ -25,13 +25,13 @@ export const LoginFields = () => {
       <Text>Email</Text>
       <TextInput
         placeholder="digite seu email"
-        onChangeText={value => setEmail(value)}
+        onChangeText={setEmail}
         keyboardType="email-address"
       />
       <Text>Senha</Text>
       <TextInput
         placeholder="digite sua senha"
-        onChangeText={key => setPassword(key)}
+        onChangeText={setPassword}
         secureTextEntry={true}
       />
 

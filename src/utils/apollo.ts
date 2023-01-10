@@ -2,7 +2,7 @@ import {gql} from '@apollo/client';
 import {client} from '../../App';
 import {GraphQLServerError} from '../utils/custom-error';
 import {Alert} from 'react-native';
-import {asyncStorage} from '../utils/storage';
+import {saveOnAsyncStorage} from '../utils/storage';
 
 export const loginRequest = async (email: string, password: string) => {
   try {
@@ -12,7 +12,7 @@ export const loginRequest = async (email: string, password: string) => {
         data: {email, password},
       },
     });
-    asyncStorage('token', JSON.stringify(mutate.data.login.token));
+    saveOnAsyncStorage('token', JSON.stringify(mutate.data.login.token));
     return Alert.alert('Sucesso!');
   } catch (error) {
     const serverError = error as GraphQLServerError;

@@ -1,20 +1,29 @@
 import {gql} from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {client} from '../../App';
+import {GraphQLServerError} from '../utils/custom-error';
+import {Alert} from 'react-native';
+import {asyncStorage} from '../utils/storage';
 
-export const loginMutation = (email: string, password: string) => {
-  return gql`
-    mutation Login {
-      login(data: {email: "${email}", password: "${password}"}) {
-        token
-      }
-    }
-  `;
-};
-
-export const asyncStorage = (key: string, value: string) => {
+export const loginRequest = async (email: string, password: string) => {
   try {
-    AsyncStorage.setItem(key, value);
-  } catch {
-    throw 'Chave inexistente';
+    const mutate = await client.mutate({
+      mutation: loginMutation,
+      variables: {
+        data: {email, password},
+      },
+    });
+    asyncStorage('token', JSON.stringify(mutate.data.login.token));
+    return Alert.alert('Sucesso!');
+  } catch (error) {
+    const serverError = error as GraphQLServerError;
+    return Alert.alert(serverError.graphQLErrors[0].message);
   }
 };
+
+const loginMutation = gql`
+  mutation Login($data: LoginInput!) {
+    login(data: $data) {
+      token
+    }
+  }
+`;

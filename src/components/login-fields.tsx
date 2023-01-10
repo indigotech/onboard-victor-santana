@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Text, TextInput, View, Alert} from 'react-native';
-import {
-  loginRequest,
-  validateEmail,
-  validatePassword,
-} from '../utils/validation';
+import {loginRequest} from '../utils/apollo';
+import {validateEmail, validatePassword} from '../utils/validation';
 
 export const LoginFields = () => {
   const [email, setEmail] = useState('');

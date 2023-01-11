@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Button, Text, TextInput, View, Alert} from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  Alert,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import {loginRequest} from '../utils/apollo';
 import {goToHome} from '../utils/navigation';
 import {validateEmail, validatePassword} from '../utils/validation';
@@ -11,20 +18,27 @@ interface LoginProps {
 export const LoginFields = (props: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const validate = () => {
+  const validate = async () => {
     const emailValidation = validateEmail(email);
     const passwordValidation = validatePassword(password);
-    if (emailValidation !== '') {
-      return Alert.alert(emailValidation);
-    }
+    try {
+      if (emailValidation !== '') {
+        return Alert.alert(emailValidation);
+      }
 
-    if (validatePassword(password) !== '') {
-      return Alert.alert(passwordValidation);
+      if (validatePassword(password) !== '') {
+        return Alert.alert(passwordValidation);
+      }
+      setLoading(true);
+      await loginRequest(email, password);
+      setLoading(false);
+      goToHome(props.componentId);
+    } catch {
+      setLoading(false);
+      throw 'Não foi possivel realizar o login';
     }
-
-    loginRequest(email, password);
-    goToHome(props.componentId);
   };
 
   return (
@@ -41,8 +55,13 @@ export const LoginFields = (props: LoginProps) => {
         onChangeText={setPassword}
         secureTextEntry={true}
       />
-
-      <Button title="Entrar" onPress={() => validate()} />
+      {!loading ? (
+        <TouchableOpacity onPress={() => validate()}>
+          <Text>Entrar</Text>
+        </TouchableOpacity>
+      ) : (
+        <ActivityIndicator />
+      )}
     </View>
   );
 };

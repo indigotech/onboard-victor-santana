@@ -3,7 +3,11 @@ import {Button, Text, TextInput, View, Alert} from 'react-native';
 import {loginRequest} from '../utils/apollo';
 import {validateEmail, validatePassword} from '../utils/validation';
 
-export const LoginFields = () => {
+interface LoginProps {
+  componentId: string;
+}
+
+export const LoginFields = (props: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,7 +22,7 @@ export const LoginFields = () => {
       return Alert.alert(passwordValidation);
     }
 
-    loginRequest(email, password);
+    loginRequest(email, password, props.componentId);
   };
 
   return (

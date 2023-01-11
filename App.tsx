@@ -36,7 +36,7 @@ const App = () => {
             style={{
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
             }}>
-            <LoginScreen />
+            <LoginScreen componentId="Component1" />
           </View>
         </ScrollView>
       </SafeAreaView>

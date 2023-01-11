@@ -1,4 +1,4 @@
-const regexEmail = /^[\w-\.]{3,}@([\w-]{3,}\.)+(?:com)$/;
+const regexEmail = /.+[@].+\.com/;
 const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
 
 export const validateEmail = (email: string) => {

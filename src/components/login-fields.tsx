@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Text, TextInput, View, Alert} from 'react-native';
-import {validateEmail, validatePassword} from '../utils/signin-validation';
+import {loginRequest} from '../utils/apollo';
+import {validateEmail, validatePassword} from '../utils/validation';
 
 export const LoginFields = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ export const LoginFields = () => {
       return Alert.alert(passwordValidation);
     }
 
-    return Alert.alert('Sucesso!');
+    loginRequest(email, password);
   };
 
   return (

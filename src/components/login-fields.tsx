@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Text, TextInput, View, Alert} from 'react-native';
 import {loginRequest} from '../utils/apollo';
+import {goToHome} from '../utils/navigation';
 import {validateEmail, validatePassword} from '../utils/validation';
 
 interface LoginProps {
@@ -22,7 +23,8 @@ export const LoginFields = (props: LoginProps) => {
       return Alert.alert(passwordValidation);
     }
 
-    loginRequest(email, password, props.componentId);
+    loginRequest(email, password);
+    goToHome(props.componentId);
   };
 
   return (

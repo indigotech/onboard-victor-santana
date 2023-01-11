@@ -4,7 +4,6 @@ import {SafeAreaView, Text} from 'react-native';
 import {NavigationComponentProps} from 'react-native-navigation';
 
 export const LoginScreen = (props: NavigationComponentProps) => {
-  console.log(props);
   return (
     <SafeAreaView>
       <Text>Bem vindo(a) à Taqtile!</Text>

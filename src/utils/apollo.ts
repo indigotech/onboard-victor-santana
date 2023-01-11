@@ -3,13 +3,8 @@ import {client} from '../../App';
 import {GraphQLServerError} from '../utils/custom-error';
 import {Alert} from 'react-native';
 import {saveOnAsyncStorage} from '../utils/storage';
-import {goToHome} from './navigation';
 
-export const loginRequest = async (
-  email: string,
-  password: string,
-  componentId: string,
-) => {
+export const loginRequest = async (email: string, password: string) => {
   try {
     const mutate = await client.mutate({
       mutation: loginMutation,
@@ -18,7 +13,6 @@ export const loginRequest = async (
       },
     });
     saveOnAsyncStorage('token', JSON.stringify(mutate.data.login.token));
-    goToHome(componentId);
   } catch (error) {
     const serverError = error as GraphQLServerError;
     return Alert.alert(serverError.graphQLErrors[0].message);

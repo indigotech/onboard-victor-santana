@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const saveOnAsyncStorage = (key: string, value: string) => {
+export const saveOnAsyncStorage = async (key: string, value: string) => {
   try {
-    AsyncStorage.setItem(key, value);
+    await AsyncStorage.setItem(key, value);
   } catch {
     throw 'Chave inexistente';
   }

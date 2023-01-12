@@ -11,12 +11,8 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, useColorScheme, View} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-
-export const client = new ApolloClient({
-  uri: 'https://template-onboarding-node-sjz6wnaoia-uc.a.run.app/graphql',
-  cache: new InMemoryCache(),
-});
+import {ApolloProvider} from '@apollo/client';
+import {client} from './src/utils/apollo';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';

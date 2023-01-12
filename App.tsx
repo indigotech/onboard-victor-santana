@@ -10,7 +10,6 @@
 
 import React from 'react';
 import {SafeAreaView, ScrollView, useColorScheme, View} from 'react-native';
-import {LoginScreen} from './src/signin/Signin';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 
@@ -35,9 +34,8 @@ const App = () => {
           <View
             style={{
               backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}>
-            <LoginScreen componentId="Component1" />
-          </View>
+            }}
+          />
         </ScrollView>
       </SafeAreaView>
     </ApolloProvider>

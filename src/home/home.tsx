@@ -1,5 +1,11 @@
 import React from 'react';
-import {FlatList, SafeAreaView, Text, View} from 'react-native';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 
 interface User {
   userName: string;
@@ -26,18 +32,18 @@ const userList: User[] = [
 ];
 
 export const HomeScreen = () => {
+  const renderItem = ({item}: ListRenderItemInfo<User>) => {
+    return (
+      <View>
+        <Text>Nome: {item.userName}</Text>
+        <Text>Email: {item.userEmail}</Text>
+      </View>
+    );
+  };
   return (
     <SafeAreaView>
       <Text>Lista de usuários: </Text>
-      <FlatList
-        data={userList}
-        renderItem={({item}) => (
-          <View>
-            <Text>Nome: {item.userName}</Text>
-            <Text>Email: {item.userEmail}</Text>
-          </View>
-        )}
-      />
+      <FlatList data={userList} renderItem={renderItem} />
     </SafeAreaView>
   );
 };

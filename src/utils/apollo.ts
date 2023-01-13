@@ -9,7 +9,8 @@ const BASE_URL =
 const link = createHttpLink({uri: BASE_URL});
 
 const authenticationContext = setContext(async (_, {headers}) => {
-  const token = await getStoredItem('token');
+  let token = await getStoredItem('token');
+  token = token.replace(/['"]+/g, '');
   return {
     headers: {
       ...headers,
@@ -47,10 +48,12 @@ const loginMutation = gql`
 `;
 
 export const usersQuery = gql`
-  query Users {
-    user {
-      name
-      email
+  query Query {
+    users {
+      nodes {
+        name
+        email
+      }
     }
   }
 `;

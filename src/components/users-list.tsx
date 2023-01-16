@@ -12,9 +12,7 @@ import {UserNode} from '../utils/models';
 import {UserItem} from './user-item';
 
 export const UsersList = () => {
-  const {data, loading} = useQuery(usersQuery, {
-    variables: {data: {limit: null, offset: null}},
-  });
+  const {data, loading} = useQuery(usersQuery);
 
   return (
     <SafeAreaView>

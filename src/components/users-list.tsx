@@ -21,7 +21,7 @@ export const UsersList = () => {
         <ActivityIndicator />
       ) : (
         <FlatList
-          keyExtractor={item => item.name}
+          keyExtractor={item => item.id}
           data={data.users.nodes}
           renderItem={({item}: ListRenderItemInfo<UserNode>) => (
             <UserItem {...item} />

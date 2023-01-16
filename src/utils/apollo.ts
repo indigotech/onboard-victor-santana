@@ -18,7 +18,7 @@ const authenticationContext = setContext(async (_, {headers}) => {
   return {
     headers: {
       ...headers,
-      Authorization: token ? token.replace(/['"]+/g, '') : '',
+      Authorization: token ? token : '',
     },
   };
 });
@@ -36,7 +36,7 @@ export const loginRequest = async (email: string, password: string) => {
         data: {email, password},
       },
     });
-    saveOnAsyncStorage('token', JSON.stringify(mutate.data.login.token));
+    saveOnAsyncStorage('token', mutate.data.login.token);
   } catch (error) {
     const serverError = error as GraphQLServerError;
     return Alert.alert(serverError.graphQLErrors[0].message);

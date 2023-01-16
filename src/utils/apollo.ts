@@ -48,11 +48,15 @@ const loginMutation = gql`
 `;
 
 export const usersQuery = gql`
-  query Query {
-    users {
+  query Query($data: PageInput) {
+    users(data: $data) {
       nodes {
+        id
         name
+        phone
+        birthDate
         email
+        role
       }
     }
   }

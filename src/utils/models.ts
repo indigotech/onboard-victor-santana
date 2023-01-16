@@ -1,4 +1,8 @@
 export interface UserNode {
-  name: string;
+  birthDate: string;
   email: string;
+  id: string;
+  name: string;
+  phone: string;
+  role: string;
 }

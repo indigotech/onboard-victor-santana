@@ -17,7 +17,9 @@ export const UsersList = () => {
   return (
     <SafeAreaView>
       <Text>Lista de Usuarios: </Text>
-      {!loading ? (
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
         <FlatList
           keyExtractor={item => item.name}
           data={data.users.nodes}
@@ -25,8 +27,6 @@ export const UsersList = () => {
             <UserItem {...item} />
           )}
         />
-      ) : (
-        <ActivityIndicator />
       )}
     </SafeAreaView>
   );

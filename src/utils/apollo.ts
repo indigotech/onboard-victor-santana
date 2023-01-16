@@ -9,12 +9,16 @@ const BASE_URL =
 const link = createHttpLink({uri: BASE_URL});
 
 const authenticationContext = setContext(async (_, {headers}) => {
-  let token = await getStoredItem('token');
-  token = token.replace(/['"]+/g, '');
+  let token = '';
+  try {
+    token = await getStoredItem('token');
+  } catch (error) {
+    return Alert.alert(JSON.stringify(error));
+  }
   return {
     headers: {
       ...headers,
-      Authorization: token ? token : '',
+      Authorization: token ? token.replace(/['"]+/g, '') : '',
     },
   };
 });

@@ -61,6 +61,7 @@ export const usersQuery = gql`
         hasNextPage
         offset
       }
+<<<<<<< HEAD
     }
   }
 `;
@@ -87,6 +88,8 @@ export const userDetailQuery = gql`
       birthDate
       email
       role
+=======
+>>>>>>> 75be5dd (feat: adding infinity scroll pagination)
     }
   }
 `;

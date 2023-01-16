@@ -9,6 +9,7 @@ export interface UserNode {
   role: string;
 }
 
+<<<<<<< HEAD
 export interface User {
   birthDate: string;
   email: string;
@@ -18,6 +19,8 @@ export interface User {
   password: string;
 }
 
+=======
+>>>>>>> 75be5dd (feat: adding infinity scroll pagination)
 export interface QueryUsersList {
   users: {
     nodes: UserNode[];
@@ -26,6 +29,7 @@ export interface QueryUsersList {
     };
   };
 }
+<<<<<<< HEAD
 
 export interface AddUserProps extends NavigationComponentProps {
   onSuccess(): void;
@@ -34,3 +38,5 @@ export interface AddUserProps extends NavigationComponentProps {
 export interface UserDetailProps {
   userId: string;
 }
+=======
+>>>>>>> 75be5dd (feat: adding infinity scroll pagination)

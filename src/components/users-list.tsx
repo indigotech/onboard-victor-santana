@@ -16,9 +16,6 @@ export const UsersList = () => {
     variables: {data: {limit: null, offset: null}},
   });
 
-  console.log(data);
-  console.log(loading);
-
   return (
     <SafeAreaView>
       <Text>Lista de Usuarios: </Text>

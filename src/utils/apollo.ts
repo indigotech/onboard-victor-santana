@@ -62,6 +62,10 @@ export const usersQuery = gql`
         email
         role
       }
+      pageInfo {
+        hasNextPage
+        offset
+      }
     }
   }
 `;

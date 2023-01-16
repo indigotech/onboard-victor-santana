@@ -6,3 +6,12 @@ export interface UserNode {
   phone: string;
   role: string;
 }
+
+export interface QueryUsersList {
+  users: {
+    nodes: UserNode[];
+    pageInfo: {
+      hasNextPage: boolean;
+    };
+  };
+}

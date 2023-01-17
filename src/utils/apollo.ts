@@ -9,12 +9,8 @@ const BASE_URL =
 const link = createHttpLink({uri: BASE_URL});
 
 const authenticationContext = setContext(async (_, {headers}) => {
-  let token = '';
-  try {
-    token = await getStoredItem('token');
-  } catch (error) {
-    return Alert.alert(JSON.stringify(error));
-  }
+  let token = await getStoredItem('token');
+  token = token.replace(/['"]+/g, '');
   return {
     headers: {
       ...headers,
@@ -36,7 +32,7 @@ export const loginRequest = async (email: string, password: string) => {
         data: {email, password},
       },
     });
-    saveOnAsyncStorage('token', mutate.data.login.token);
+    saveOnAsyncStorage('token', JSON.stringify(mutate.data.login.token));
   } catch (error) {
     const serverError = error as GraphQLServerError;
     return Alert.alert(serverError.graphQLErrors[0].message);
@@ -52,8 +48,8 @@ const loginMutation = gql`
 `;
 
 export const usersQuery = gql`
-  query Query {
-    users {
+  query Query($data: PageInput) {
+    users(data: $data) {
       nodes {
         id
         name

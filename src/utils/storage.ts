@@ -7,3 +7,12 @@ export const saveOnAsyncStorage = async (key: string, value: string) => {
     throw 'Chave inexistente';
   }
 };
+
+export const getStoredItem = async (key: string) => {
+  const value = await AsyncStorage.getItem(key);
+  if (value !== null) {
+    return value;
+  } else {
+    throw 'Chave inexistente';
+  }
+};

@@ -8,7 +8,11 @@ import {
   validatePhone,
 } from '../utils/validation';
 
+<<<<<<< HEAD
 export const AddUserScreen: React.FC = () => {
+=======
+export const AddUserScreen = () => {
+>>>>>>> e622675 (feat: adding fields validation)
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

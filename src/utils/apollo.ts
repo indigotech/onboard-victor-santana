@@ -93,3 +93,16 @@ export const userDetailQuery = gql`
     }
   }
 `;
+
+export const createUserMutation = gql`
+  mutation CreateUser($data: UserInput!) {
+    createUser(data: $data) {
+      id
+      name
+      phone
+      birthDate
+      email
+      role
+    }
+  }
+`;

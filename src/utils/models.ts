@@ -10,6 +10,9 @@ export interface UserNode {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c75485a (feat: adding add user server integration)
 export interface User {
   birthDate: string;
   email: string;
@@ -19,8 +22,11 @@ export interface User {
   password: string;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 75be5dd (feat: adding infinity scroll pagination)
+=======
+>>>>>>> c75485a (feat: adding add user server integration)
 export interface QueryUsersList {
   users: {
     nodes: UserNode[];
@@ -30,13 +36,19 @@ export interface QueryUsersList {
   };
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c75485a (feat: adding add user server integration)
 
 export interface AddUserProps extends NavigationComponentProps {
   onSuccess(): void;
 }
+<<<<<<< HEAD
 
 export interface UserDetailProps {
   userId: string;
 }
 =======
 >>>>>>> 75be5dd (feat: adding infinity scroll pagination)
+=======
+>>>>>>> c75485a (feat: adding add user server integration)

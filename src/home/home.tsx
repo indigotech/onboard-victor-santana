@@ -1,20 +1,74 @@
-import {ApolloProvider} from '@apollo/client';
-import React from 'react';
+import {useQuery} from '@apollo/client';
+import React, {useRef, useState} from 'react';
+import {ActivityIndicator, FlatList, SafeAreaView, Text} from 'react-native';
 import {NavigationComponentProps} from 'react-native-navigation';
 import {AddUserFAB} from '../components/add-user-fab';
-import {UsersList} from '../components/users-list';
-import {client} from '../utils/apollo';
+import {Loading, renderItem} from '../components/list-functions';
+import {usersQuery} from '../utils/apollo';
+import {UserNode} from '../utils/models';
 import {goToAddUser} from '../utils/navigation';
 
+const LIMIT = 15;
+
 export const HomeScreen: React.FC<NavigationComponentProps> = props => {
+  const offset = useRef(0);
+  const hasMoreData = useRef(true);
+  const [users, setUsers] = useState<UserNode[]>([]);
+  const {refetch, loading} = useQuery(usersQuery, {
+    variables: {data: {limit: LIMIT, offset: 0}},
+    onCompleted: data => {
+      setUsers(prev => [...prev, ...data.users.nodes]);
+      hasMoreData.current = data.users.pageInfo.hasNextPage;
+      offset.current = data.users.pageInfo.offset;
+    },
+  });
+
+  const moreUsers = () => {
+    if (!hasMoreData) {
+      return;
+    }
+
+    refetch({
+      data: {
+        limit: LIMIT,
+        offset: LIMIT + offset.current,
+      },
+    });
+  };
+
+  const newUser = () => {
+    setUsers([]);
+    offset.current = 0;
+    let limit2 = 0;
+    refetch({
+      data: {
+        limit: LIMIT,
+        offset: limit2 + offset.current,
+      },
+    });
+    limit2 = LIMIT;
+  };
+
   const handleAddUserFABTap = () => {
-    goToAddUser(props.componentId);
+    goToAddUser(props.componentId, newUser);
   };
 
   return (
-    <ApolloProvider client={client}>
-      <UsersList />
+    <SafeAreaView>
+      <Text>Lista de Usuarios: </Text>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          keyExtractor={item => item.id}
+          data={users}
+          renderItem={renderItem}
+          ListFooterComponent={<Loading loading={hasMoreData.current} />}
+          onEndReachedThreshold={0.3}
+          onEndReached={moreUsers}
+        />
+      )}
       <AddUserFAB onTap={handleAddUserFABTap} />
-    </ApolloProvider>
+    </SafeAreaView>
   );
 };

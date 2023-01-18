@@ -9,12 +9,7 @@ const BASE_URL =
 const link = createHttpLink({uri: BASE_URL});
 
 const authenticationContext = setContext(async (_, {headers}) => {
-  let token = '';
-  try {
-    token = await getStoredItem('token');
-  } catch (error) {
-    return Alert.alert(JSON.stringify(error));
-  }
+  let token = await getStoredItem('token');
   return {
     headers: {
       ...headers,
@@ -52,8 +47,8 @@ const loginMutation = gql`
 `;
 
 export const usersQuery = gql`
-  query Query {
-    users {
+  query Query($data: PageInput) {
+    users(data: $data) {
       nodes {
         id
         name
@@ -61,6 +56,10 @@ export const usersQuery = gql`
         birthDate
         email
         role
+      }
+      pageInfo {
+        hasNextPage
+        offset
       }
     }
   }

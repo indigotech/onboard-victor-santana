@@ -1,18 +1,37 @@
 import {useQuery} from '@apollo/client';
-import React from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItemInfo,
-  SafeAreaView,
-  Text,
-} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {ActivityIndicator, FlatList, SafeAreaView, Text} from 'react-native';
 import {usersQuery} from '../utils/apollo';
 import {UserNode} from '../utils/models';
-import {UserItem} from './user-item';
+import {Loading, renderItem} from './list-functions';
+
+const LIMIT = 15;
 
 export const UsersList = () => {
-  const {data, loading} = useQuery(usersQuery);
+  const offset = useRef(0);
+  const hasMoreData = useRef(true);
+  const [users, setUsers] = useState<UserNode[]>([]);
+  const {refetch, loading} = useQuery(usersQuery, {
+    variables: {data: {limit: LIMIT, offset: 0}},
+    onCompleted: data => {
+      setUsers(prev => [...prev, ...data.users.nodes]);
+      hasMoreData.current = data.users.pageInfo.hasNextPage;
+      offset.current = data.users.pageInfo.offset;
+    },
+  });
+
+  const moreUsers = () => {
+    if (!hasMoreData) {
+      return;
+    }
+
+    refetch({
+      data: {
+        limit: LIMIT,
+        offset: LIMIT + offset.current,
+      },
+    });
+  };
 
   return (
     <SafeAreaView>
@@ -22,10 +41,11 @@ export const UsersList = () => {
       ) : (
         <FlatList
           keyExtractor={item => item.id}
-          data={data.users.nodes}
-          renderItem={({item}: ListRenderItemInfo<UserNode>) => (
-            <UserItem {...item} />
-          )}
+          data={users}
+          renderItem={renderItem}
+          ListFooterComponent={<Loading loading={hasMoreData.current} />}
+          onEndReachedThreshold={0.3}
+          onEndReached={moreUsers}
         />
       )}
     </SafeAreaView>

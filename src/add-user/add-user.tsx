@@ -8,7 +8,7 @@ import {
   validatePhone,
 } from '../utils/validation';
 
-export const AddUserScreen = () => {
+export const AddUserScreen: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

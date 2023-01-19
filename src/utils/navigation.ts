@@ -5,14 +5,14 @@ import {LoginScreen} from '../signin/Signin';
 
 export const registerScreens = () => {
   Navigation.registerComponent('Login', () => LoginScreen);
-  Navigation.registerComponent('Home', () => HomeScreen);
-  Navigation.registerComponent('AddUser', () => AddUserScreen);
+  Navigation.registerComponent('HomeScreen', () => HomeScreen);
+  Navigation.registerComponent('AddUserScreen', () => AddUserScreen);
 };
 
 export const goToHome = (id: string) => {
   Navigation.push(id, {
     component: {
-      name: 'Home',
+      name: 'HomeScreen',
     },
   });
 };
@@ -20,7 +20,7 @@ export const goToHome = (id: string) => {
 export const goToAddUser = (id: string) => {
   Navigation.push(id, {
     component: {
-      name: 'AddUser',
+      name: 'AddUserScreen',
     },
   });
 };

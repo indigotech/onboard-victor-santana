@@ -106,3 +106,16 @@ export const createUserMutation = gql`
     }
   }
 `;
+
+export const userDetailQuery = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      phone
+      birthDate
+      email
+      role
+    }
+  }
+`;

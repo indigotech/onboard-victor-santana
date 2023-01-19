@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {UserNode} from '../utils/models';
+import {goToUserDetailScreen} from '../utils/navigation';
 
 const phoneMask = (value?: string) => {
   if (!value) {
@@ -12,12 +13,14 @@ const phoneMask = (value?: string) => {
     .replace(/(\d)(\d{4})$/, '$1-$2');
 };
 
-export const UserItem = ({name, email, phone}: UserNode) => {
+export const UserItem = ({name, email, phone, id}: UserNode) => {
   return (
-    <View>
-      <Text>Nome: {name}</Text>
-      <Text>Email: {email}</Text>
-      <Text>Telefone: {phoneMask(phone)}</Text>
-    </View>
+    <TouchableOpacity onPress={() => goToUserDetailScreen(id)}>
+      <View>
+        <Text>Nome: {name}</Text>
+        <Text>Email: {email}</Text>
+        <Text>Telefone: {phoneMask(phone)}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };

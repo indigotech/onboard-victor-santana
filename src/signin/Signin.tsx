@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  TouchableOpacity,
   ActivityIndicator,
   Text,
   TextInput,
@@ -11,6 +10,9 @@ import {validateEmail, validatePassword} from '../utils/validation';
 import {NavigationComponentProps} from 'react-native-navigation';
 import {goToHome} from '../utils/navigation';
 import {loginRequest} from '../utils/apollo';
+import {H1} from '../components/H1';
+import {StyledButton} from '../components/button';
+import { StyledForm } from '../components/form';
 
 export const LoginScreen = (props: NavigationComponentProps) => {
   const [email, setEmail] = useState('');
@@ -40,24 +42,23 @@ export const LoginScreen = (props: NavigationComponentProps) => {
 
   return (
     <SafeAreaView>
-      <Text>Bem vindo(a) à Taqtile!</Text>
-      <Text>Email</Text>
-      <TextInput
-        placeholder="digite seu email"
-        onChangeText={setEmail}
-        keyboardType="email-address"
+      <H1 content="Bem vindo(a) à Taqtile!" />
+      <StyledForm 
+        error={false}
+        title={'Email'}
+        label={'Digite seu email'}
+        changeText={setEmail}
+        isPassword={false}
       />
-      <Text>Senha</Text>
-      <TextInput
-        placeholder="digite sua senha"
-        onChangeText={setPassword}
-        secureTextEntry={true}
+      <StyledForm 
+        error={false}
+        title={'Senha'}
+        label={'Digite sua senha'}
+        changeText={setPassword}
+        isPassword={true}
       />
-
       {!loading ? (
-        <TouchableOpacity onPress={() => validate()}>
-          <Text>Entrar</Text>
-        </TouchableOpacity>
+        <StyledButton content="Entrar" pressButon={() => validate()} />
       ) : (
         <ActivityIndicator />
       )}

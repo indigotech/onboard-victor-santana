@@ -32,7 +32,7 @@ export const AddUser: React.FC<AddUserProps> = props => {
       email: email,
       phone: phone,
       password: password,
-      role: role,
+      role: role.toLowerCase(),
     };
   };
 
@@ -64,7 +64,6 @@ export const AddUser: React.FC<AddUserProps> = props => {
       return Alert.alert(birthDateValidation);
     }
     const user = createNewUser();
-    user.role = user.role.toLowerCase();
     try {
       await createUser({
         variables: {

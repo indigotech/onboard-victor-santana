@@ -7,7 +7,16 @@ import {LoginScreen} from '../signin/Signin';
 import {client} from './apollo';
 
 export const registerScreens = () => {
-  Navigation.registerComponent('Login', () => LoginScreen);
+  Navigation.registerComponent(
+    'Login',
+    () => props =>
+      (
+        <ApolloProvider client={client}>
+          <LoginScreen {...props} />
+        </ApolloProvider>
+      ),
+    () => LoginScreen,
+  );
   Navigation.registerComponent(
     'Home',
     () => props =>
@@ -18,7 +27,16 @@ export const registerScreens = () => {
       ),
     () => HomeScreen,
   );
-  Navigation.registerComponent('AddUser', () => AddUserScreen);
+  Navigation.registerComponent(
+    'AddUser',
+    () => props =>
+      (
+        <ApolloProvider client={client}>
+          <AddUserScreen {...props} />
+        </ApolloProvider>
+      ),
+    () => AddUserScreen,
+  );
 };
 
 export const goToHome = (id: string) => {

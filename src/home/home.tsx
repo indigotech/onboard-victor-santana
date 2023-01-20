@@ -23,7 +23,7 @@ export const HomeScreen: React.FC<NavigationComponentProps> = props => {
     },
   });
 
-  const moreUsers = () => {
+  const handleEndReached = () => {
     if (!hasMoreData) {
       return;
     }
@@ -36,21 +36,18 @@ export const HomeScreen: React.FC<NavigationComponentProps> = props => {
     });
   };
 
-  const newUser = () => {
+  const handleSuccess = () => {
     setUsers([]);
-    offset.current = 0;
-    let limit2 = 0;
     refetch({
       data: {
         limit: LIMIT,
-        offset: limit2 + offset.current,
+        offset: 0,
       },
     });
-    limit2 = LIMIT;
   };
 
   const handleAddUserFABTap = () => {
-    goToAddUser(props.componentId, newUser);
+    goToAddUser(props.componentId, handleSuccess);
   };
 
   return (
@@ -65,7 +62,7 @@ export const HomeScreen: React.FC<NavigationComponentProps> = props => {
           renderItem={renderItem}
           ListFooterComponent={<Loading loading={hasMoreData.current} />}
           onEndReachedThreshold={0.3}
-          onEndReached={moreUsers}
+          onEndReached={handleEndReached}
         />
       )}
       <AddUserFAB onTap={handleAddUserFABTap} />

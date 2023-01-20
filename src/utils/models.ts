@@ -1,3 +1,5 @@
+import {NavigationComponentProps} from 'react-native-navigation';
+
 export interface UserNode {
   birthDate: string;
   email: string;
@@ -7,6 +9,15 @@ export interface UserNode {
   role: string;
 }
 
+export interface User {
+  birthDate: string;
+  email: string;
+  name: string;
+  phone: string;
+  role: string;
+  password: string;
+}
+
 export interface QueryUsersList {
   users: {
     nodes: UserNode[];
@@ -14,4 +25,8 @@ export interface QueryUsersList {
       hasNextPage: boolean;
     };
   };
+}
+
+export interface AddUserProps extends NavigationComponentProps {
+  onSuccess(): void;
 }

@@ -64,3 +64,16 @@ export const usersQuery = gql`
     }
   }
 `;
+
+export const createUserMutation = gql`
+  mutation CreateUser($data: UserInput!) {
+    createUser(data: $data) {
+      id
+      name
+      phone
+      birthDate
+      email
+      role
+    }
+  }
+`;

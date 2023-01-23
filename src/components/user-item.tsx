@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import {UserNode} from '../utils/models';
 import {goToUserDetailScreen} from '../utils/navigation';
 
-const phoneMask = (value?: string) => {
+export const phoneMask = (value?: string) => {
   if (!value) {
     return '';
   }

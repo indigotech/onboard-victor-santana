@@ -1,13 +1,14 @@
 import {useQuery} from '@apollo/client';
 import React, {useRef, useState} from 'react';
 import {ActivityIndicator, FlatList, SafeAreaView, Text} from 'react-native';
+import {NavigationComponentProps} from 'react-native-navigation';
 import {usersQuery} from '../utils/apollo';
 import {UserNode} from '../utils/models';
 import {Loading, renderItem} from './list-functions';
 
 const LIMIT = 15;
 
-export const UsersList = () => {
+export const UsersList = (props: NavigationComponentProps) => {
   const offset = useRef(0);
   const hasMoreData = useRef(true);
   const [users, setUsers] = useState<UserNode[]>([]);
@@ -42,7 +43,7 @@ export const UsersList = () => {
         <FlatList
           keyExtractor={item => item.id}
           data={users}
-          renderItem={renderItem}
+          renderItem={renderItem(props.componentId)}
           ListFooterComponent={<Loading loading={hasMoreData.current} />}
           onEndReachedThreshold={0.3}
           onEndReached={moreUsers}

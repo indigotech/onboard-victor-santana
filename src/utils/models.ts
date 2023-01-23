@@ -30,3 +30,7 @@ export interface QueryUsersList {
 export interface AddUserProps extends NavigationComponentProps {
   onSuccess(): void;
 }
+
+export interface UserDetailProps {
+  userId: string;
+}

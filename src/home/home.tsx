@@ -59,7 +59,7 @@ export const HomeScreen: React.FC<NavigationComponentProps> = props => {
         <FlatList
           keyExtractor={item => item.id}
           data={users}
-          renderItem={renderItem}
+          renderItem={renderItem(props.componentId)}
           ListFooterComponent={<Loading loading={hasMoreData.current} />}
           onEndReachedThreshold={0.3}
           onEndReached={handleEndReached}

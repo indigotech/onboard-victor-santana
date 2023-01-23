@@ -1,8 +1,12 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {UserNode} from '../utils/models';
 
-const phoneMask = (value?: string) => {
+interface UserItemProps extends UserNode {
+  onTap: (id: string) => void;
+}
+
+export const phoneMask = (value?: string) => {
   if (!value) {
     return '';
   }
@@ -12,12 +16,14 @@ const phoneMask = (value?: string) => {
     .replace(/(\d)(\d{4})$/, '$1-$2');
 };
 
-export const UserItem = ({name, email, phone}: UserNode) => {
+export const UserItem = ({name, email, phone, id, onTap}: UserItemProps) => {
   return (
-    <View>
-      <Text>Nome: {name}</Text>
-      <Text>Email: {email}</Text>
-      <Text>Telefone: {phoneMask(phone)}</Text>
-    </View>
+    <TouchableOpacity onPress={() => onTap(id)}>
+      <View>
+        <Text>Nome: {name}</Text>
+        <Text>Email: {email}</Text>
+        <Text>Telefone: {phoneMask(phone)}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };

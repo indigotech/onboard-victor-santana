@@ -5,6 +5,7 @@ import {AddUserScreen} from '../add-user/add-user-screen';
 import {HomeScreen} from '../home/home';
 import {LoginScreen} from '../signin/Signin';
 import {client} from './apollo';
+import {UserDetailScreen} from '../user-details/user-details-screen';
 
 export const registerScreens = () => {
   Navigation.registerComponent(
@@ -37,6 +38,16 @@ export const registerScreens = () => {
       ),
     () => AddUserScreen,
   );
+  Navigation.registerComponent(
+    'UserDetails',
+    () => props =>
+      (
+        <ApolloProvider client={client}>
+          <UserDetailScreen {...props} />
+        </ApolloProvider>
+      ),
+    () => UserDetailScreen,
+  );
 };
 
 export const goToHome = (id: string) => {
@@ -52,6 +63,15 @@ export const goToAddUser = (id: string, onSuccess: () => void) => {
     component: {
       name: 'AddUser',
       passProps: {onSuccess},
+    },
+  });
+};
+
+export const goToUserDetailScreen = (id: string, userId: string) => {
+  Navigation.push(id, {
+    component: {
+      name: 'UserDetails',
+      passProps: {userId},
     },
   });
 };

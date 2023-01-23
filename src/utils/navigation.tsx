@@ -67,8 +67,8 @@ export const goToAddUser = (id: string, onSuccess: () => void) => {
   });
 };
 
-export const goToUserDetailScreen = (userId: string) => {
-  Navigation.push('Component4', {
+export const goToUserDetailScreen = (id: string, userId: string) => {
+  Navigation.push(id, {
     component: {
       name: 'UserDetails',
       passProps: {userId},

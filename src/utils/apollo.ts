@@ -61,35 +61,6 @@ export const usersQuery = gql`
         hasNextPage
         offset
       }
-<<<<<<< HEAD
-    }
-  }
-`;
-
-export const createUserMutation = gql`
-  mutation CreateUser($data: UserInput!) {
-    createUser(data: $data) {
-      id
-      name
-      phone
-      birthDate
-      email
-      role
-    }
-  }
-`;
-
-export const userDetailQuery = gql`
-  query user($id: ID!) {
-    user(id: $id) {
-      id
-      name
-      phone
-      birthDate
-      email
-      role
-=======
->>>>>>> 75be5dd (feat: adding infinity scroll pagination)
     }
   }
 `;

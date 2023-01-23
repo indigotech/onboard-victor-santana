@@ -64,39 +64,3 @@ export const validateBirthDate = (birthDate: string): string => {
 
   return '';
 };
-
-export const validatePhone = (phone: string) => {
-  if (phone === '') {
-    return 'Campo telefone não pode ser vazio!';
-  } else if (phone.length < 11) {
-    return 'Formato de telefone inválido';
-  }
-  return '';
-};
-
-export const validateName = (name: string) => {
-  if (name === '') {
-    return 'Campo nome não pode ser vazio!';
-  }
-  return '';
-};
-
-export const validateBirthDate = (birthDate: string) => {
-  const today = new Date();
-  const verifyBirthDate = new Date(birthDate);
-  const minDate = new Date('1905-01-01');
-
-  if (!regexBirthDate.test(birthDate)) {
-    return 'Formato de data inválido!';
-  }
-
-  if (today < verifyBirthDate) {
-    return 'Data de nascimento no futuro';
-  }
-
-  if (verifyBirthDate < minDate) {
-    return 'Data de nascimento muito antiga!';
-  }
-
-  return '';
-};

@@ -1,6 +1,6 @@
 import {useMutation} from '@apollo/client';
 import React, {useState} from 'react';
-import {Alert, Button, Text, TextInput, View} from 'react-native';
+import {Alert, View} from 'react-native';
 import {createUserMutation} from '../utils/apollo';
 import {GraphQLServerError} from '../utils/custom-error';
 import {AddUserProps, User} from '../utils/models';
@@ -12,14 +12,30 @@ import {
   validatePassword,
   validatePhone,
 } from '../utils/validation';
+import {StyledButton} from './button';
+import {StyledForm} from './form';
+import {H1} from './H1';
 
 export const AddUser: React.FC<AddUserProps> = props => {
   const [name, setName] = useState('');
+  const [nameError, setNameError] = useState(false);
+  const [nameErrorMessage, setNameErrorMessage] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState('');
   const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState(false);
+  const [phoneErrorMessage, setPhoneErrorMessage] = useState('');
   const [birthDate, setBirthDate] = useState('');
+  const [birthDateError, setBirthDateError] = useState(false);
+  const [birthDateErrorMessage, setBirthDateErrorMessage] = useState('');
   const [role, setRole] = useState('');
   const [createUser] = useMutation(createUserMutation, {
     fetchPolicy: 'no-cache',
@@ -43,25 +59,48 @@ export const AddUser: React.FC<AddUserProps> = props => {
     const nameValidation = validateName(name);
     const birthDateValidation = validateBirthDate(birthDate);
     if (emailValidation !== '') {
-      return Alert.alert(emailValidation);
+      setEmailError(true);
+      setEmailErrorMessage(emailValidation);
+      return;
+    } else {
+      setEmailError(false);
     }
 
     if (passwordValidation !== '') {
-      return Alert.alert(passwordValidation);
+      setPasswordError(true);
+      setPasswordErrorMessage(passwordValidation);
+      return;
     } else if (password !== confirmPassword) {
-      return Alert.alert('As senhas devem ser iguais!');
+      setConfirmPasswordError(true);
+      setConfirmPasswordErrorMessage('As senhas devem ser iguais!');
+      return;
+    } else {
+      setPasswordError(false);
+      setConfirmPasswordError(false);
     }
 
     if (phoneValidation !== '') {
-      return Alert.alert(phoneValidation);
+      setPhoneError(true);
+      setPhoneErrorMessage(phoneValidation);
+      return;
+    } else {
+      setPhoneError(false);
     }
 
     if (nameValidation !== '') {
-      return Alert.alert(nameValidation);
+      setNameError(true);
+      setNameErrorMessage(nameValidation);
+      return;
+    } else {
+      setNameError(false);
     }
 
     if (birthDateValidation !== '') {
-      return Alert.alert(birthDateValidation);
+      setBirthDateError(true);
+      setBirthDateErrorMessage(birthDateValidation);
+      return;
+    } else {
+      setBirthDateError(false);
     }
     const user = createNewUser();
     try {
@@ -80,30 +119,65 @@ export const AddUser: React.FC<AddUserProps> = props => {
 
   return (
     <View>
-      <Text>Adicionar Usuário</Text>
-      <Text>Nome</Text>
-      <TextInput placeholder="nome" onChangeText={setName} />
-      <Text>Email</Text>
-      <TextInput placeholder="email" onChangeText={setEmail} />
-      <Text>Senha</Text>
-      <TextInput
-        placeholder="senha"
-        onChangeText={setPassword}
-        secureTextEntry={true}
+      <H1 content="Adicionar Usuário" />
+      <StyledForm
+        validate={nameError}
+        title="Nome"
+        label="Digite seu nome"
+        changeText={setName}
+        isPassword={false}
+        errorMessage={nameErrorMessage}
       />
-      <Text>Confirmar Senha</Text>
-      <TextInput
-        placeholder="senha"
-        onChangeText={setConfirmPassword}
-        secureTextEntry={true}
+      <StyledForm
+        validate={emailError}
+        title="Email"
+        label="Digite seu email"
+        changeText={setEmail}
+        isPassword={false}
+        errorMessage={emailErrorMessage}
       />
-      <Text>Telefone</Text>
-      <TextInput placeholder="telefone" onChangeText={setPhone} />
-      <Text>Data de Nascimento</Text>
-      <TextInput placeholder="data de nascimento" onChangeText={setBirthDate} />
-      <Text>Role</Text>
-      <TextInput placeholder="role" onChangeText={setRole} />
-      <Button title="Adicionar Usuário" onPress={() => validateUserData()} />
+      <StyledForm
+        validate={passwordError}
+        title="Senha"
+        label="Digite sua senha"
+        changeText={setPassword}
+        isPassword={true}
+        errorMessage={passwordErrorMessage}
+      />
+      <StyledForm
+        validate={confirmPasswordError}
+        title="Confirmar senha"
+        label="Confirme sua senha"
+        changeText={setConfirmPassword}
+        isPassword={true}
+        errorMessage={confirmPasswordErrorMessage}
+      />
+      <StyledForm
+        validate={phoneError}
+        title="Telefone"
+        label="Digite seu telefone"
+        changeText={setPhone}
+        isPassword={false}
+        errorMessage={phoneErrorMessage}
+      />
+      <StyledForm
+        validate={birthDateError}
+        title="Data de Nascimento"
+        label="Digite sua data de nascimento"
+        changeText={setBirthDate}
+        isPassword={false}
+        errorMessage={birthDateErrorMessage}
+      />
+      <StyledForm
+        title="Role"
+        label="User | Admin"
+        changeText={setRole}
+        isPassword={false}
+      />
+      <StyledButton
+        content="Adicionar Usuário"
+        pressButon={() => validateUserData()}
+      />
     </View>
   );
 };

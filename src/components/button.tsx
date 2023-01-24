@@ -1,18 +1,18 @@
 import React from 'react';
 import {ButtonStyled, ButtonText} from './styles/button';
-import {FieldContainer} from './styles/general';
+import {Container} from './styles/general';
 
-interface buttonProps {
+interface StyledButtonProps {
   content: string;
   pressButon: () => void;
 }
 
-export const StyledButton: React.FC<buttonProps> = props => {
+export const StyledButton = (props: StyledButtonProps) => {
   return (
-    <FieldContainer>
+    <Container>
       <ButtonStyled onPress={props.pressButon}>
         <ButtonText>{props.content}</ButtonText>
       </ButtonStyled>
-    </FieldContainer>
+    </Container>
   );
 };

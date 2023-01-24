@@ -14,27 +14,21 @@ import {
 } from '../utils/validation';
 import {StyledButton} from './button';
 import {StyledForm} from './form';
-import {H1} from './H1';
+import {H1} from './styles/header';
 
 export const AddUser: React.FC<AddUserProps> = props => {
   const [name, setName] = useState('');
-  const [nameError, setNameError] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState('');
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
     useState('');
   const [phone, setPhone] = useState('');
-  const [phoneError, setPhoneError] = useState(false);
   const [phoneErrorMessage, setPhoneErrorMessage] = useState('');
   const [birthDate, setBirthDate] = useState('');
-  const [birthDateError, setBirthDateError] = useState(false);
   const [birthDateErrorMessage, setBirthDateErrorMessage] = useState('');
   const [role, setRole] = useState('');
   const [createUser] = useMutation(createUserMutation, {
@@ -59,48 +53,42 @@ export const AddUser: React.FC<AddUserProps> = props => {
     const nameValidation = validateName(name);
     const birthDateValidation = validateBirthDate(birthDate);
     if (emailValidation !== '') {
-      setEmailError(true);
       setEmailErrorMessage(emailValidation);
       return;
     } else {
-      setEmailError(false);
+      setEmailErrorMessage('');
     }
 
     if (passwordValidation !== '') {
-      setPasswordError(true);
       setPasswordErrorMessage(passwordValidation);
       return;
     } else if (password !== confirmPassword) {
-      setConfirmPasswordError(true);
       setConfirmPasswordErrorMessage('As senhas devem ser iguais!');
       return;
     } else {
-      setPasswordError(false);
-      setConfirmPasswordError(false);
+      setPasswordErrorMessage('');
+      setConfirmPasswordErrorMessage('');
     }
 
     if (phoneValidation !== '') {
-      setPhoneError(true);
       setPhoneErrorMessage(phoneValidation);
       return;
     } else {
-      setPhoneError(false);
+      setPhoneErrorMessage('');
     }
 
     if (nameValidation !== '') {
-      setNameError(true);
       setNameErrorMessage(nameValidation);
       return;
     } else {
-      setNameError(false);
+      setNameErrorMessage('');
     }
 
     if (birthDateValidation !== '') {
-      setBirthDateError(true);
       setBirthDateErrorMessage(birthDateValidation);
       return;
     } else {
-      setBirthDateError(false);
+      setBirthDateErrorMessage('');
     }
     const user = createNewUser();
     try {
@@ -119,9 +107,9 @@ export const AddUser: React.FC<AddUserProps> = props => {
 
   return (
     <View>
-      <H1 content="Adicionar Usuário" />
+      <H1>Adicionar Usuário</H1>
       <StyledForm
-        validate={nameError}
+        validate={!(nameErrorMessage.length === 0)}
         title="Nome"
         label="Digite seu nome"
         changeText={setName}
@@ -129,7 +117,7 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={nameErrorMessage}
       />
       <StyledForm
-        validate={emailError}
+        validate={!(emailErrorMessage.length === 0)}
         title="Email"
         label="Digite seu email"
         changeText={setEmail}
@@ -137,7 +125,7 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={emailErrorMessage}
       />
       <StyledForm
-        validate={passwordError}
+        validate={!(passwordErrorMessage.length === 0)}
         title="Senha"
         label="Digite sua senha"
         changeText={setPassword}
@@ -145,7 +133,7 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={passwordErrorMessage}
       />
       <StyledForm
-        validate={confirmPasswordError}
+        validate={!(confirmPasswordErrorMessage.length === 0)}
         title="Confirmar senha"
         label="Confirme sua senha"
         changeText={setConfirmPassword}
@@ -153,7 +141,7 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={confirmPasswordErrorMessage}
       />
       <StyledForm
-        validate={phoneError}
+        validate={!(phoneErrorMessage.length === 0)}
         title="Telefone"
         label="Digite seu telefone"
         changeText={setPhone}
@@ -161,7 +149,7 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={phoneErrorMessage}
       />
       <StyledForm
-        validate={birthDateError}
+        validate={!(birthDateErrorMessage.length === 0)}
         title="Data de Nascimento"
         label="Digite sua data de nascimento"
         changeText={setBirthDate}

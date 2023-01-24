@@ -4,16 +4,14 @@ import {validateEmail, validatePassword} from '../utils/validation';
 import {NavigationComponentProps} from 'react-native-navigation';
 import {goToHome} from '../utils/navigation';
 import {loginRequest} from '../utils/apollo';
-import {H1} from '../components/H1';
 import {StyledButton} from '../components/button';
 import {StyledForm} from '../components/form';
+import {H1} from '../components/styles/header';
 
 export const LoginScreen = (props: NavigationComponentProps) => {
   const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -22,36 +20,33 @@ export const LoginScreen = (props: NavigationComponentProps) => {
     const passwordValidation = validatePassword(password);
     try {
       if (emailValidation !== '') {
-        setEmailError(true);
         setEmailErrorMessage(emailValidation);
         return;
       } else {
-        setEmailError(false);
+        setEmailErrorMessage('');
       }
 
       if (validatePassword(password) !== '') {
-        setPasswordError(true);
         setPasswordErrorMessage(passwordValidation);
         return;
       } else {
-        setPasswordError(false);
+        setPasswordErrorMessage('');
       }
+
       setLoading(true);
       await loginRequest(email, password);
       setLoading(false);
       goToHome(props.componentId);
     } catch {
       setLoading(false);
-      setEmailError(false);
       throw 'Não foi possivel realizar o login';
     }
   };
 
   return (
     <SafeAreaView>
-      <H1 content="Bem vindo(a) à Taqtile!" />
+      <H1>Bem vindo(a) à Taqtile!</H1>
       <StyledForm
-        validate={emailError}
         title={'Email'}
         label={'Digite seu email'}
         changeText={setEmail}
@@ -59,7 +54,6 @@ export const LoginScreen = (props: NavigationComponentProps) => {
         errorMessage={emailErrorMessage}
       />
       <StyledForm
-        validate={passwordError}
         title={'Senha'}
         label={'Digite sua senha'}
         changeText={setPassword}

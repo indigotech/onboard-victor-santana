@@ -3,8 +3,8 @@ import React, {useRef, useState} from 'react';
 import {ActivityIndicator, FlatList, SafeAreaView} from 'react-native';
 import {NavigationComponentProps} from 'react-native-navigation';
 import {AddUserFAB} from '../components/add-user-fab';
-import {H1} from '../components/H1';
 import {Loading, renderItem} from '../components/list-functions';
+import {H1} from '../components/styles/header';
 import {usersQuery} from '../utils/apollo';
 import {UserNode} from '../utils/models';
 import {goToAddUser} from '../utils/navigation';
@@ -53,7 +53,7 @@ export const HomeScreen: React.FC<NavigationComponentProps> = props => {
 
   return (
     <SafeAreaView>
-      <H1 content="Lista de Usuários: " />
+      <H1>Lista de Usuários:</H1>
       {loading ? (
         <ActivityIndicator />
       ) : (

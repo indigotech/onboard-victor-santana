@@ -109,7 +109,6 @@ export const AddUser: React.FC<AddUserProps> = props => {
     <View>
       <H1>Adicionar Usuário</H1>
       <StyledForm
-        validate={!(nameErrorMessage.length === 0)}
         title="Nome"
         label="Digite seu nome"
         changeText={setName}
@@ -117,7 +116,6 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={nameErrorMessage}
       />
       <StyledForm
-        validate={!(emailErrorMessage.length === 0)}
         title="Email"
         label="Digite seu email"
         changeText={setEmail}
@@ -125,7 +123,6 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={emailErrorMessage}
       />
       <StyledForm
-        validate={!(passwordErrorMessage.length === 0)}
         title="Senha"
         label="Digite sua senha"
         changeText={setPassword}
@@ -133,7 +130,6 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={passwordErrorMessage}
       />
       <StyledForm
-        validate={!(confirmPasswordErrorMessage.length === 0)}
         title="Confirmar senha"
         label="Confirme sua senha"
         changeText={setConfirmPassword}
@@ -141,7 +137,6 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={confirmPasswordErrorMessage}
       />
       <StyledForm
-        validate={!(phoneErrorMessage.length === 0)}
         title="Telefone"
         label="Digite seu telefone"
         changeText={setPhone}
@@ -149,7 +144,6 @@ export const AddUser: React.FC<AddUserProps> = props => {
         errorMessage={phoneErrorMessage}
       />
       <StyledForm
-        validate={!(birthDateErrorMessage.length === 0)}
         title="Data de Nascimento"
         label="Digite sua data de nascimento"
         changeText={setBirthDate}

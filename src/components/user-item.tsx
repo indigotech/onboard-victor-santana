@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import {UserNode} from '../utils/models';
-import {ItemButton, ItemContainer, ItemTitleStyled} from './styles/item';
+import {ItemContainer, ItemTitleStyled} from './styles/item';
 
 interface UserItemProps extends UserNode {
   onTap: (id: string) => void;

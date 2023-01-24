@@ -1,20 +1,18 @@
 import React, {useState} from 'react';
-import {
-  TouchableOpacity,
-  ActivityIndicator,
-  Text,
-  TextInput,
-  SafeAreaView,
-  Alert,
-} from 'react-native';
+import {ActivityIndicator, SafeAreaView} from 'react-native';
 import {validateEmail, validatePassword} from '../utils/validation';
 import {NavigationComponentProps} from 'react-native-navigation';
 import {goToHome} from '../utils/navigation';
 import {loginRequest} from '../utils/apollo';
+import {StyledButton} from '../components/button';
+import {StyledForm} from '../components/form';
+import {H1} from '../components/styles/header';
 
 export const LoginScreen = (props: NavigationComponentProps) => {
   const [email, setEmail] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const validate = async () => {
@@ -22,12 +20,19 @@ export const LoginScreen = (props: NavigationComponentProps) => {
     const passwordValidation = validatePassword(password);
     try {
       if (emailValidation !== '') {
-        return Alert.alert(emailValidation);
+        setEmailErrorMessage(emailValidation);
+        return;
+      } else {
+        setEmailErrorMessage('');
       }
 
       if (validatePassword(password) !== '') {
-        return Alert.alert(passwordValidation);
+        setPasswordErrorMessage(passwordValidation);
+        return;
+      } else {
+        setPasswordErrorMessage('');
       }
+
       setLoading(true);
       await loginRequest(email, password);
       setLoading(false);
@@ -40,24 +45,23 @@ export const LoginScreen = (props: NavigationComponentProps) => {
 
   return (
     <SafeAreaView>
-      <Text>Bem vindo(a) à Taqtile!</Text>
-      <Text>Email</Text>
-      <TextInput
-        placeholder="digite seu email"
-        onChangeText={setEmail}
-        keyboardType="email-address"
+      <H1>Bem vindo(a) à Taqtile!</H1>
+      <StyledForm
+        title={'Email'}
+        label={'Digite seu email'}
+        changeText={setEmail}
+        isPassword={false}
+        errorMessage={emailErrorMessage}
       />
-      <Text>Senha</Text>
-      <TextInput
-        placeholder="digite sua senha"
-        onChangeText={setPassword}
-        secureTextEntry={true}
+      <StyledForm
+        title={'Senha'}
+        label={'Digite sua senha'}
+        changeText={setPassword}
+        isPassword={true}
+        errorMessage={passwordErrorMessage}
       />
-
       {!loading ? (
-        <TouchableOpacity onPress={() => validate()}>
-          <Text>Entrar</Text>
-        </TouchableOpacity>
+        <StyledButton content="Entrar" pressButon={() => validate()} />
       ) : (
         <ActivityIndicator />
       )}

@@ -20,9 +20,7 @@ export const StyledForm: React.FC<FormProps> = props => {
         onChangeText={props.changeText}
         secureTextEntry={props.isPassword}
       />
-      {props.errorMessage ? (
-        <FormCaption>{props.errorMessage}</FormCaption>
-      ) : null}
+      {props.errorMessage && <FormCaption>{props.errorMessage}</FormCaption>}
     </Container>
   );
 };

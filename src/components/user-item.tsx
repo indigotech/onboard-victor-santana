@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import {UserNode} from '../utils/models';
+import {ItemContainer, ItemTitleStyled} from './styles/item';
 
 interface UserItemProps extends UserNode {
   onTap: (id: string) => void;
@@ -19,11 +20,11 @@ export const phoneMask = (value?: string) => {
 export const UserItem = ({name, email, phone, id, onTap}: UserItemProps) => {
   return (
     <TouchableOpacity onPress={() => onTap(id)}>
-      <View>
-        <Text>Nome: {name}</Text>
+      <ItemContainer>
+        <ItemTitleStyled>{name}</ItemTitleStyled>
         <Text>Email: {email}</Text>
         <Text>Telefone: {phoneMask(phone)}</Text>
-      </View>
+      </ItemContainer>
     </TouchableOpacity>
   );
 };

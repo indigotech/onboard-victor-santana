@@ -4,9 +4,9 @@ import {validateEmail, validatePassword} from '../utils/validation';
 import {NavigationComponentProps} from 'react-native-navigation';
 import {goToHome} from '../utils/navigation';
 import {loginRequest} from '../utils/apollo';
-import {StyledButton} from '../components/button';
-import {StyledForm} from '../components/form';
 import {H1} from '../components/styles/header';
+import {StyledForm} from '../components/form';
+import {StyledButton} from '../components/button';
 
 export const LoginScreen = (props: NavigationComponentProps) => {
   const [email, setEmail] = useState('');
